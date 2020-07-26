@@ -1,0 +1,25 @@
+.box
+    position: absolute
+    z-index: 1
+    top: 20vh
+    left: 50%
+    transform: translateX(calc(-50% - 5px))
+    &::after
+        content: ''
+        position: absolute
+        width: 5px
+        height: 81%
+        right: -10px
+        top: 50%
+        transform: translateY(-50%)
+        background-color: #30ca56
+
+
+.title
+    color: white
+    font-size: 5rem
+    font-weight: 700
+    text-transform: uppercase
+    letter-spacing: .5rem
+    &::first-letter
+        color: #30ca56

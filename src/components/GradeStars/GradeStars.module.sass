@@ -1,0 +1,36 @@
+.gradeBox
+    display: flex
+    flex-wrap: wrap
+    justify-content: center
+    align-items: center
+
+.gradeInfo
+    width: 100%
+    margin-top: 1rem
+    font-size: .8rem
+    color: grey
+    font-style: italic
+    text-align: center
+
+.gradeElement
+    width: 40px
+    height: 40px
+    margin: 0 10px
+    background: grey
+    border-radius: 50%
+    clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%)
+    cursor: pointer
+
+
+.gradeElementLight
+    @extend .gradeElement
+    background-color: #f0d227
+
+.gradeElementNonClick
+    @extend .gradeElement
+    cursor: default
+    
+
+.gradeElementLightNonClick
+    @extend .gradeElementLight
+    cursor: default
