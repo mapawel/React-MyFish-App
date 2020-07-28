@@ -5,7 +5,6 @@
 
 .sectionWrapper
     @include wrap
-        
 
 .sectionHeader
     @include wrap
@@ -24,86 +23,4 @@
     flex-wrap: wrap
     justify-content: space-between
 
-.inputHeader
-    margin-bottom: 10px
-    font-size: 1rem
-    letter-spacing: .05rem
-    font-weight: 400
-
-.inputContainer
-    position: relative
-    z-index: 0
-    margin-right: auto
-    margin-left: 0
-    width: 100%
-    max-width: 400px
-    margin-top: 1rem
-    margin-bottom: 1rem
-    overflow: hidden
-
-.inputElement
-    display: block
-    width: 100%
-    height: 45px
-    padding: 1rem 50px 5px 1rem
-    background-color: #ffffff0e
-    border: none
-    border-bottom: 1px solid #30ca56
-    border-radius: 8px 8px 0 0
-    color: #ebf3ed
-    line-height: 1
-    overflow: hidden
-    &:focus, &:not(:placeholder-shown)
-        outline: none
-        box-shadow: inset 0 0 10px #30ca577c
-    &:focus ~.label, &:not(:placeholder-shown) ~.label
-        transform: scale(.6) translate(-40%, -200%)
-        
-
-.label
-    position: absolute
-    left: 10px
-    top: 50%
-    transform: translate(0, -50%)
-    color: #afb3b0
-    letter-spacing: .05rem
-    font-style: italic
-    transition: .3s
-
-
-
-.button
-    position: absolute
-    right: 10px
-    top: 50%
-    transform: translate(0, -50%)
-    width: 2rem
-    height: 2rem
-    background: none
-    border: 1px solid #30ca56
-    border-radius: 50%
-    cursor: pointer
-    animation: moveOn .5s
-    &::before, &::after
-        content: ''
-        position: absolute
-        top: 50%
-        left: 50%
-        width: 60%
-        height: 1px
-        background-color: #30ca56
-    &::before
-       transform: translate(-50%, -50%) rotate(45deg) 
-    &::after
-       transform: translate(-50%, -50%) rotate(-45deg) 
-        
-        
-@keyframes moveOn
-    0%
-        transform: translate(150%, -50%)
-    100%
-        transform: translate(0, -50%)
-        
-
-
-
+ 

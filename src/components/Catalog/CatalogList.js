@@ -1,61 +1,24 @@
 import React from 'react';
 import styles from './CatalogList.module.sass';
 import AppContext from '../../context';
-import CatalogListItem from './CatalogListItem'
+import CatalogListItem from './CatalogListItem';
+import SearchBox from '../SearchBox/SearchBox';
 
 
 class CatalogList extends React.Component {
-    state = {
-        searchTxt: ''
-    }
-
-    handleSearch = async (e) => {
-        await this.setState({
-            searchTxt: e.target.value
-        });
-        this.context.filterCatalog(this.state.searchTxt)
-    }
-
-    handleClear = async () => {
-        await this.setState({
-            searchTxt: ''
-        })
-        this.context.filterCatalog(this.state.searchTxt)
-    }
-
     render() {
         return (
             <>
+                <h1 className={styles.sectionHeader}>katalog gatunków</h1>
+
                 <div className={styles.sectionWrapper}>
-                    <h1 className={styles.sectionHeader}>katalog gatunków</h1>
-                    <h4 className={styles.inputHeader}>
-                        znajdź gatunek:
-                    </h4>
-                    <div className={styles.inputContainer}>
-                        <input
-                            className={styles.inputElement}
-                            type='text'
-                            id='filterFish'
-                            placeholder=' '
-                            autoComplete='off'
-                            onChange={(e) => this.handleSearch(e)}
-                            value={this.state.searchTxt.toLocaleUpperCase()}
-                        >
-                        </input>
-                        <label
-                            className={styles.label}
-                            htmlFor='filterFish'
-                        >
-                            podaj nazwę
-                    </label>
-                        {
-                            this.state.searchTxt &&
-                            <button
-                                className={styles.button}
-                                onClick={this.handleClear}>
-                            </button>
-                        }
-                    </div>
+                    <SearchBox
+                        id='fishCatalogFilter'
+                        onChange = {(e) => this.context.filterCatalog(e.target.value)}
+                        value = {this.context.searchedFishInCatalog.toLocaleUpperCase()}
+                        labelTxt = 'podaj nazwę'
+                        crossOnClock = {(e) => this.context.filterCatalog('')}
+                    >znajdź gatunek:</SearchBox>
                 </div>
 
                 <ul className={styles.wrapper}>
@@ -74,5 +37,35 @@ class CatalogList extends React.Component {
 };
 CatalogList.contextType = AppContext;
 
-
 export default CatalogList;
+
+
+{/* <h4 className={styles.inputHeader}>
+znajdź gatunek:
+</h4>
+<div className={styles.inputContainer}>
+<input
+    className={styles.inputElement}
+    type='text'
+    id='filterFish'
+    placeholder=' '
+    autoComplete='off'
+    onChange={(e) => this.context.filterCatalog(e.target.value)}
+    value={this.context.searchedFishInCatalog.toLocaleUpperCase()}
+>
+</input>
+<label
+    className={styles.label}
+    htmlFor='filterFish'
+>
+    podaj nazwę
+</label>
+{
+    this.context.searchedFishInCatalog &&
+    <button
+        className={styles.button}
+        onClick={(e) => this.context.filterCatalog('')}>
+
+    </button>
+}
+</div> */}

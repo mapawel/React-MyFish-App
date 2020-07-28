@@ -16,10 +16,17 @@ class Root extends React.Component {
     state = {
         fish: fish,
         fishFiltered: '',
+        searchedFishInCatalog: '',
         isFishCardOpen: false,
         isMyFishOpen: false,
         fishIdToDisplay: '',
         myFishIdToDisplay: '',
+        myFishFiltered: '',
+        searchedFishInMyFish: '',
+        searchedPlaceInMyFish: '',
+        searchedMonthInMyFish: '',
+        searchedYearInMyFish: '',
+        searchedStarsInMyFish: '',
 
 
         myFish: [
@@ -102,17 +109,57 @@ class Root extends React.Component {
 
     filterCatalog = (searchTxt) => {
         this.setState({
-            fishFiltered: this.state.fish.filter((fhs) => fhs.name.toLowerCase().includes(searchTxt.toLowerCase()))
+            fishFiltered: this.state.fish.filter((fhs) => fhs.name.toLowerCase().includes(searchTxt.toLowerCase())),
+            searchedFishInCatalog: searchTxt
+        })
+    }
+
+
+    filterMyFishListParamFromBase = (searchTxt, param, searchPlace, searchMonth, searchYear, stars) => {
+
+        const idsFitToSearchArr = this.state.fish.filter((fhs) => fhs[param].toLowerCase().includes(searchTxt.toLowerCase()))
+        let foundSearchElement = [];
+        idsFitToSearchArr.forEach((i) => {
+            let newFragment = this.state.myFish.filter((fhs) => fhs.fishId === i.id);
+            foundSearchElement = [...foundSearchElement, ...newFragment];
+        });
+
+        if (searchPlace !== '') {
+            foundSearchElement = foundSearchElement.filter((fhs) => fhs.myPlace.toLowerCase().includes(searchPlace.toLowerCase()))
+        }
+
+        if (searchMonth !== '' && searchMonth !== '---') {
+            foundSearchElement = foundSearchElement.filter((fhs) => new Date(fhs.myKey).getMonth() + 1 == searchMonth)
+            console.log(searchMonth);
+        }
+
+        if (searchYear !== '' && searchYear !== '---') {
+            foundSearchElement = foundSearchElement.filter((fhs) => new Date(fhs.myKey).getFullYear() == searchYear)
+        }
+
+        if (stars !== '') {
+            foundSearchElement = foundSearchElement.filter((fhs) => fhs.myGrade == stars);
+        }
+
+
+
+        this.setState({
+            myFishFiltered: foundSearchElement,
+            searchedFishInMyFish: searchTxt,
+            searchedPlaceInMyFish: searchPlace,
+            searchedMonthInMyFish: searchMonth,
+            searchedYearInMyFish: searchYear,
+            searchedStarsInMyFish: stars
         })
     }
 
     handleGradeChange = (e, key) => {
-        const newGade = e.target.id *1
+        const newGade = e.target.id * 1
 
         this.setState(prevState => {
-        const changedMyFish = Object(...prevState.myFish.filter((fhs) => fhs.myKey.toString() === key.toString()));
-        changedMyFish.myGrade = newGade;
-        const changingElIndex = prevState.myFish.indexOf(changedMyFish);
+            const changedMyFish = Object(...prevState.myFish.filter((fhs) => fhs.myKey.toString() === key.toString()));
+            changedMyFish.myGrade = newGade;
+            const changingElIndex = prevState.myFish.indexOf(changedMyFish);
             return {
                 myFish: [
                     ...prevState.myFish.slice(0, changingElIndex),
@@ -132,7 +179,8 @@ class Root extends React.Component {
             filterCatalog: this.filterCatalog,
             openMyFish: this.openMyFish,
             closeMyFish: this.closeMyFish,
-            handleGradeChange: this.handleGradeChange
+            handleGradeChange: this.handleGradeChange,
+            filterMyFishListParamFromBase: this.filterMyFishListParamFromBase,
         }
         return (
             <BrowserRouter>

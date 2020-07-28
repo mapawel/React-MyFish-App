@@ -37,7 +37,10 @@ class MyFishCard extends React.Component {
                     <p className={styles.txt}>{myDescription}</p>
 
                     <p className={styles.smallHeader}>twoja ocena połowu:</p>
-                    <GradeStars {...this.props}>kliknij, aby zmodyfikować</GradeStars>
+                    <GradeStars
+                    onClick={(e) => this.context.handleGradeChange(e, myKey)}
+                    {...this.props}
+                    >kliknij, aby zmodyfikować</GradeStars>
 
                 </div>
                 <div className={styles.flexEnter}></div>
