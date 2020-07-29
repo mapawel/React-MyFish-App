@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './SearchBox.module.sass';
 import AppContext from '../../context';
+import Button from '../Button/Button';
 
 class SearchBox extends React.Component {
     render() {
@@ -10,11 +11,10 @@ class SearchBox extends React.Component {
         
 
         return (
-            <>
+            <div className={styles.wrapper}>
                 <h4 className={styles.inputHeader}>
                     {children}
                 </h4>
-
                 <div className={styles.inputContainer}>
                     <Tag
                         className={styles.inputElement}
@@ -35,13 +35,13 @@ class SearchBox extends React.Component {
                     </label>
                     {
                         value &&
-                        <button
-                            className={styles.button}
-                            onClick={crossOnClock}>
-                        </button>
+                        <Button
+                            onClick={crossOnClock}
+                            type='clear'>
+                        </Button>
                     }
                 </div>
-            </>
+            </div>
         )
     }
 

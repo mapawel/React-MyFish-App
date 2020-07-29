@@ -2,6 +2,7 @@ import React from 'react';
 import styles from './MyFishListItem.module.sass';
 import AppContext from '../../context';
 import GradeStars from '../GradeStars/GradeStars';
+import Button from '../Button/Button';
 
 class MyFishListItem extends React.Component {
     render() {
@@ -33,13 +34,12 @@ class MyFishListItem extends React.Component {
                 <GradeStars {...this.props} nonClick></GradeStars>
 
                 <div className={styles.flexEnter}></div>
-                <button
-                    className={styles.btn}
+                <Button
                     id={myKey}
                     onClick={this.context.openMyFish}
                 >
                     więcej
-                </button>
+                </Button>
 
             </li>
         )

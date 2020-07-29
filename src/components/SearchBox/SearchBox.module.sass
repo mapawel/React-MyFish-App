@@ -1,18 +1,27 @@
+.flexEnter
+    width: 100%
+    
+.wrapper
+    display: flex
+    flex-direction: column
+    align-items: flex-start
+    width: 100%
+    max-width: 400px
+    
 .inputHeader
+    margin-left: 5px
     margin-bottom: 10px
     font-size: 1rem
     letter-spacing: .05rem
     font-weight: 400
+    color: #30ca56
 
 .inputContainer
+    width: 100%
     position: relative
     z-index: 0
     margin-right: auto
-    margin-left: 0
-    width: 100%
-    max-width: 400px
-    margin-top: 1rem
-    margin-bottom: 1rem
+    margin-bottom: 2rem
     overflow: hidden
 
 .inputElement
@@ -43,38 +52,7 @@
     font-style: italic
     transition: .3s
 
-.button
-    position: absolute
-    right: 10px
-    top: 50%
-    transform: translate(0, -50%)
-    width: 2rem
-    height: 2rem
-    background: none
-    border: 1px solid #30ca56
-    border-radius: 50%
-    cursor: pointer
-    animation: moveOn .5s
-    &::before, &::after
-        content: ''
-        position: absolute
-        top: 50%
-        left: 50%
-        width: 60%
-        height: 1px
-        background-color: #30ca56
-    &::before
-       transform: translate(-50%, -50%) rotate(45deg) 
-    &::after
-       transform: translate(-50%, -50%) rotate(-45deg) 
-        
-        
-@keyframes moveOn
-    0%
-        transform: translate(150%, -50%)
-    100%
-        transform: translate(0, -50%)
-        
-
-
-
+@media screen and ( min-width: 768px )
+    .wrapper
+        width: 48%
+        margin-right: 2%

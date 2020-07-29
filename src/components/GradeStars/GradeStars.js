@@ -52,6 +52,8 @@ class GradeStars extends React.Component {
                             <button id='2' onClick={onClick} className={grade2class}></button>
                             <button id='3' onClick={onClick} className={grade3class}></button>
                             <p className={styles.gradeInfo}>{children}</p>
+                            
+                            
                         </div>
                     )
                 }

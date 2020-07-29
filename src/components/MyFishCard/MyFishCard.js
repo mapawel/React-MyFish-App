@@ -2,6 +2,7 @@ import React from 'react';
 import styles from './MyFishCard.module.sass';
 import AppContext from '../../context';
 import GradeStars from '../GradeStars/GradeStars';
+import Button from '../Button/Button';
 
 
 class MyFishCard extends React.Component {
@@ -44,11 +45,11 @@ class MyFishCard extends React.Component {
 
                 </div>
                 <div className={styles.flexEnter}></div>
-                <button
-                    className={styles.btn}
+                <Button
                     id={myKey}
                     onClick={this.context.closeMyFish}
-                ></button>
+                    type='close'
+                ></Button>
             </div>
         )
     }

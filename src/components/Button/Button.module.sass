@@ -1,0 +1,72 @@
+.defaultBtn
+    margin: 10px auto 0
+    padding: 10px 20px
+    color: #30ca56
+    background: none
+    border: 1px solid #30ca56
+    border-radius: 5px
+    text-transform: uppercase
+    letter-spacing: .2rem
+    cursor: pointer
+
+.closeBtn
+    position: absolute
+    top: 1.5rem
+    right: 2rem
+    width: 2rem
+    height: 2rem
+    color: #30ca56
+    background: none
+    border: 1px solid #30ca56
+    border-radius: 5px
+    text-transform: uppercase
+    letter-spacing: .2rem
+    cursor: pointer
+    &::before, &::after
+        content: ''
+        position: absolute
+        top: 50%
+        left: 50%
+        width: 80%
+        height: 1px
+        background-color: #30ca56
+    &::before
+       transform: translate(-50%, -50%) rotate(45deg) 
+    &::after
+       transform: translate(-50%, -50%) rotate(-45deg)
+
+.roundClearBtn
+    position: absolute
+    right: 10px
+    top: 50%
+    transform: translate(0, -50%)
+    width: 2rem
+    height: 2rem
+    background: none
+    border: 1px solid #30ca56
+    border-radius: 50%
+    cursor: pointer
+    animation: moveOn .5s
+    &::before, &::after
+        content: ''
+        position: absolute
+        top: 50%
+        left: 50%
+        width: 60%
+        height: 1px
+        background-color: #30ca56
+    &::before
+       transform: translate(-50%, -50%) rotate(45deg) 
+    &::after
+       transform: translate(-50%, -50%) rotate(-45deg) 
+        
+        
+@keyframes moveOn
+    0%
+        transform: translate(150%, -50%)
+    100%
+        transform: translate(0, -50%)
+        
+
+
+

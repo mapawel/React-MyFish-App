@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './CatalogListItem.module.sass';
 import AppContext from '../../context';
+import Button from '../Button/Button';
 
 const CatalogListItem = ({ name, img, generalInfo, lengthLimit, timeLimit, id }) => (
     <AppContext.Consumer>
@@ -23,13 +24,12 @@ const CatalogListItem = ({ name, img, generalInfo, lengthLimit, timeLimit, id })
                     <p className={styles.txt}>{timeLimit}</p>
                 </div>
                 <div className={styles.flexEnter}></div>
-                <button
-                    className={styles.btn}
+                <Button
                     id={id}
-                onClick={context.openFishCard}
+                    onClick={context.openFishCard}
                 >
                     więcej
-    </button>
+                </Button>
 
             </li>
         )}

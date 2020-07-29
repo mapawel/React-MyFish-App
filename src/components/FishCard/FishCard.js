@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './FishCard.module.sass';
 import AppContext from '../../context';
+import Button from '../Button/Button'
 
 
 class FishCard extends React.Component {
@@ -32,11 +33,11 @@ class FishCard extends React.Component {
                         <p className={styles.txt}>{advice}</p>
                     </div>
                     <div className={styles.flexEnter}></div>
-                    <button
-                        className={styles.btn}
+                    <Button
                         onClick={this.context.closeFishCard}
-                        id={id}>
-                    </button>
+                        id={id}
+                        type='close'>
+                    </Button>
                 </div>
         )
     }
