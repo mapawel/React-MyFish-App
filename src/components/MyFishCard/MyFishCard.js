@@ -40,7 +40,7 @@ class MyFishCard extends React.Component {
                     <p className={styles.smallHeader}>twoja ocena połowu:</p>
                     <GradeStars
                     onClick={(e) => this.context.handleGradeChange(e, myKey)}
-                    {...this.props}
+                    myGrade={myGrade}
                     >kliknij, aby zmodyfikować</GradeStars>
 
                 </div>

@@ -5,9 +5,11 @@ import Button from '../Button/Button';
 
 class SearchBox extends React.Component {
     render() {
-        const { children, id, onChange, value, labelTxt, crossOnClock, select } = this.props
-        const Tag = select ? 'select' : 'input'
-        const options = select ? select.map((sel) => <option key={sel} value={sel[0]}>{sel[1]}</option>) : null
+        const { children, id, onChange, value, labelTxt, crossOnClock, select, textarea, ...props } = this.props
+        let Tag = select ? 'select' : 'input'
+        Tag = textarea ? 'textarea' : Tag
+        const classInput = textarea ? styles.inputElementArea : styles.inputElement
+        const options = select ? select.map((sel) => <option className={styles.optionSelect} key={sel} value={sel[0]}>{sel[1]}</option>) : null
         
 
         return (
@@ -17,27 +19,29 @@ class SearchBox extends React.Component {
                 </h4>
                 <div className={styles.inputContainer}>
                     <Tag
-                        className={styles.inputElement}
+                        className={classInput}
                         type='text'
                         id={id}
                         placeholder=' '
                         autoComplete='off'
                         onChange={onChange}
                         value={value}
-                    >
+                        {...props}
+                        >
                         {select && options}
                     </Tag>
                     <label
                         className={styles.label}
                         htmlFor={id}
-                    >
+                        >
                         {labelTxt}
                     </label>
                     {
                         value &&
                         <Button
-                            onClick={crossOnClock}
-                            type='clear'>
+                        onClick={crossOnClock}
+                        type='clear'
+                        {...props}>
                         </Button>
                     }
                 </div>

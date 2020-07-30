@@ -39,33 +39,3 @@ CatalogList.contextType = AppContext;
 
 export default CatalogList;
 
-
-{/* <h4 className={styles.inputHeader}>
-znajdź gatunek:
-</h4>
-<div className={styles.inputContainer}>
-<input
-    className={styles.inputElement}
-    type='text'
-    id='filterFish'
-    placeholder=' '
-    autoComplete='off'
-    onChange={(e) => this.context.filterCatalog(e.target.value)}
-    value={this.context.searchedFishInCatalog.toLocaleUpperCase()}
->
-</input>
-<label
-    className={styles.label}
-    htmlFor='filterFish'
->
-    podaj nazwę
-</label>
-{
-    this.context.searchedFishInCatalog &&
-    <button
-        className={styles.button}
-        onClick={(e) => this.context.filterCatalog('')}>
-
-    </button>
-}
-</div> */}

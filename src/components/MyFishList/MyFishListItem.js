@@ -6,7 +6,7 @@ import Button from '../Button/Button';
 
 class MyFishListItem extends React.Component {
     render() {
-        const { fishId, myKey, myPlace, myLength, myWeight, myGrade } = this.props;
+        const { fishId, myKey, myPlace, myLength, myWeight } = this.props;
         const { name } = Object(...this.context.fish.filter((fhs) => fhs.id === fishId));
         const { img } = Object(...this.context.fish.filter((fhs) => fhs.id === fishId));
         const date = new Date(myKey).toLocaleDateString();

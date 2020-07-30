@@ -5,7 +5,7 @@ import AppContext from '../../context'
 
 class GradeStars extends React.Component {
     render() {
-        const { myKey, children, nonClick, onClick, searchEvent } = this.props;
+        const { children, nonClick, onClick, searchEvent, name } = this.props;
         let { myGrade } = this.props;
 
         let grade1class;
@@ -14,7 +14,7 @@ class GradeStars extends React.Component {
 
         myGrade = searchEvent ? this.context.searchedStarsInMyFish*1 : myGrade
 
-        switch (myGrade) {
+        switch (myGrade*1) {
             case 1:
                 grade1class = nonClick ? styles.gradeElementLightNonClick : styles.gradeElementLight
                 grade2class = nonClick ? styles.gradeElementNonClick : styles.gradeElement
@@ -48,9 +48,9 @@ class GradeStars extends React.Component {
                         </div>
                     ) : (
                         <div className={styles.gradeBox}>
-                            <button id='1' onClick={onClick} className={grade1class}></button>
-                            <button id='2' onClick={onClick} className={grade2class}></button>
-                            <button id='3' onClick={onClick} className={grade3class}></button>
+                            <button name = {name} id='1' onClick={onClick} className={grade1class}></button>
+                            <button name = {name} id='2' onClick={onClick} className={grade2class}></button>
+                            <button name = {name} id='3' onClick={onClick} className={grade3class}></button>
                             <p className={styles.gradeInfo}>{children}</p>
                             
                             

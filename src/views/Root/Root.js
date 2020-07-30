@@ -3,12 +3,14 @@ import './Root.css';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Catalog from '../Catalog/Catalog';
 import MyFish from '../MyFish/MyFish';
+import myFishInitialDB from '../../assets/data/myFishInitialDB';
 import Top from '../Top/Top';
 import Header from '../../components/Header/Header'
 import FishCard from '../../components/FishCard/FishCard'
 import fish from '../../assets/data/fish';
 import AppContext from '../../context';
 import MyFishCard from '../../components/MyFishCard/MyFishCard';
+import Form from '../../components/Form/Form'
 
 
 
@@ -19,6 +21,7 @@ class Root extends React.Component {
         searchedFishInCatalog: '',
         isFishCardOpen: false,
         isMyFishOpen: false,
+        isFormOpen: false,
         fishIdToDisplay: '',
         myFishIdToDisplay: '',
         myFishFiltered: '',
@@ -27,54 +30,18 @@ class Root extends React.Component {
         searchedMonthInMyFish: '',
         searchedYearInMyFish: '',
         searchedStarsInMyFish: '',
+        myFish: myFishInitialDB,
 
+    }
 
-        myFish: [
-            {
-                fishId: '10',
-                myKey: 1565761550453,
-                myPlace: 'Rzeka Odra',
-                myFood: 'rosówka',
-                myMethod: 'zatęta z kukuryczy z larwami rosówki + łowienie z gruntu  koszem z zanętą + rosówka',
-                myLength: 55,
-                myWeight: 2300,
-                myDescription: 'to mój rekord',
-                myGrade: 3,
-            },
-            {
-                fishId: '2',
-                myKey: 1545751550453,
-                myPlace: 'Rzeka Odra',
-                myFood: 'rosówka',
-                myMethod: 'zatęta z kukuryczy z larwami rosówki + łowienie z gruntu  koszem z zanętą + rosówka',
-                myLength: 55,
-                myWeight: 2300,
-                myDescription: 'to mój rekord',
-                myGrade: 3,
-            },
-            {
-                fishId: '9',
-                myKey: 1565261550453,
-                myPlace: 'Rzeka Wisła',
-                myFood: 'larwy much',
-                myMethod: 'spinning, błystka obrotowa + larwy',
-                myLength: 75,
-                myWeight: 1850,
-                myDescription: 'duługa ale słaba',
-                myGrade: 2,
-            },
-            {
-                fishId: '9',
-                myKey: 1595752180611,
-                myPlace: 'Zalew Szczeciński',
-                myFood: 'żywiec',
-                myMethod: 'zanecanie 48h, rosówki, żywiec',
-                myLength: 82,
-                myWeight: 4400,
-                myDescription: 'duża ale bywały większe',
-                myGrade: 1,
-            },
-        ]
+    addFn = (e, newFishData) => {
+        e.preventDefault();
+        const newFish = newFishData
+        newFish.myKey = new Date().getTime();
+        this.setState(prevState => ({
+            myFish: [...prevState.myFish, newFish],
+        }))
+        this.closeForm()
     }
 
     openMyFish = (e) => {
@@ -107,6 +74,20 @@ class Root extends React.Component {
         })
     }
 
+    openForm = () => {
+        document.body.style.overflowY = 'hidden';
+        this.setState({
+            isFormOpen: true,
+        })
+    }
+
+    closeForm = () => {
+        document.body.style.overflowY = 'auto';
+        this.setState({
+            isFormOpen: false,
+        })
+    }
+
     filterCatalog = (searchTxt) => {
         this.setState({
             fishFiltered: this.state.fish.filter((fhs) => fhs.name.toLowerCase().includes(searchTxt.toLowerCase())),
@@ -129,19 +110,17 @@ class Root extends React.Component {
         }
 
         if (searchMonth !== '' && searchMonth !== '---') {
-            foundSearchElement = foundSearchElement.filter((fhs) => new Date(fhs.myKey).getMonth() + 1 == searchMonth)
+            foundSearchElement = foundSearchElement.filter((fhs) => new Date(fhs.myKey).getMonth() + 1 === searchMonth * 1)
             console.log(searchMonth);
         }
 
         if (searchYear !== '' && searchYear !== '---') {
-            foundSearchElement = foundSearchElement.filter((fhs) => new Date(fhs.myKey).getFullYear() == searchYear)
+            foundSearchElement = foundSearchElement.filter((fhs) => new Date(fhs.myKey).getFullYear() === searchYear * 1)
         }
 
         if (stars !== '') {
-            foundSearchElement = foundSearchElement.filter((fhs) => fhs.myGrade == stars);
+            foundSearchElement = foundSearchElement.filter((fhs) => fhs.myGrade === stars * 1);
         }
-
-
 
         this.setState({
             myFishFiltered: foundSearchElement,
@@ -171,7 +150,7 @@ class Root extends React.Component {
     }
 
     render() {
-        const { isFishCardOpen, fishIdToDisplay, fish, isMyFishOpen, myFish, myFishIdToDisplay } = this.state;
+        const { isFishCardOpen, fishIdToDisplay, fish, isMyFishOpen, myFish, myFishIdToDisplay, isFormOpen } = this.state;
         const contextElements = {
             ...this.state,
             openFishCard: this.openFishCard,
@@ -181,12 +160,16 @@ class Root extends React.Component {
             closeMyFish: this.closeMyFish,
             handleGradeChange: this.handleGradeChange,
             filterMyFishListParamFromBase: this.filterMyFishListParamFromBase,
+            openForm: this.openForm,
+            closeForm: this.closeForm,
+            addFn: this.addFn
         }
         return (
             <BrowserRouter>
                 <>
                     <AppContext.Provider value={contextElements}>
                         <Header />
+                        {isFormOpen && <Form />}
                         {isFishCardOpen && <FishCard {...fish[fishIdToDisplay - 1]} />}
                         {isMyFishOpen && <MyFishCard {...Object(...myFish.filter((fhs) => fhs.myKey.toString() === myFishIdToDisplay.toString()))} />}
                         <Switch>
