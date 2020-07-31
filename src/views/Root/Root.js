@@ -10,11 +10,11 @@ import FishCard from '../../components/FishCard/FishCard'
 import fish from '../../assets/data/fish';
 import AppContext from '../../context';
 import MyFishCard from '../../components/MyFishCard/MyFishCard';
-import Form from '../../components/Form/Form'
-
+import Form from '../../components/Form/Form';
 
 
 class Root extends React.Component {
+
     state = {
         fish: fish,
         fishFiltered: '',
@@ -22,6 +22,8 @@ class Root extends React.Component {
         isFishCardOpen: false,
         isMyFishOpen: false,
         isFormOpen: false,
+        isFormMessageOpen: false,
+        isChangeFormOpen: false,
         fishIdToDisplay: '',
         myFishIdToDisplay: '',
         myFishFiltered: '',
@@ -31,17 +33,51 @@ class Root extends React.Component {
         searchedYearInMyFish: '',
         searchedStarsInMyFish: '',
         myFish: myFishInitialDB,
-
     }
 
     addFn = (e, newFishData) => {
         e.preventDefault();
-        const newFish = newFishData
-        newFish.myKey = new Date().getTime();
-        this.setState(prevState => ({
-            myFish: [...prevState.myFish, newFish],
-        }))
-        this.closeForm()
+        const { fishId, myKey, myPlace, myLength, myWeight, myGrade } = newFishData;
+
+        if (!myKey) {
+            if (fishId && myPlace && myLength && myWeight && myGrade) {
+                const newFish = newFishData
+                newFish.myKey = new Date().getTime();
+                newFish.myLength = newFish.myLength * 1;
+                newFish.myWeight = newFish.myWeight * 1;
+                newFish.myGrade = newFish.myGrade * 1;
+                this.setState(prevState => ({
+                    myFish: [...prevState.myFish, newFish],
+                }))
+                this.closeForm()
+            } else {
+                this.setState({
+                    isFormMessageOpen: true
+                })
+            }
+
+        } else {
+
+            if (fishId && myPlace && myLength && myWeight && myGrade) {
+                this.setState(prevState => {
+                    const changedMyFish = Object(...prevState.myFish.filter((fhs) => fhs.myKey.toString() === myKey.toString()));
+                    for (let data in newFishData) { changedMyFish[data] = newFishData[data] }
+                    const changingElIndex = prevState.myFish.indexOf(changedMyFish);
+                    return {
+                        myFish: [
+                            ...prevState.myFish.slice(0, changingElIndex),
+                            changedMyFish,
+                            ...prevState.myFish.slice(changingElIndex + 1)
+                        ]
+                    }
+                })
+                this.closeForm()
+            } else {
+                this.setState({
+                    isFormMessageOpen: true
+                })
+            }
+        }
     }
 
     openMyFish = (e) => {
@@ -78,6 +114,7 @@ class Root extends React.Component {
         document.body.style.overflowY = 'hidden';
         this.setState({
             isFormOpen: true,
+            isFormMessageOpen: false
         })
     }
 
@@ -85,8 +122,19 @@ class Root extends React.Component {
         document.body.style.overflowY = 'auto';
         this.setState({
             isFormOpen: false,
+            isChangeFormOpen: false,
         })
     }
+
+    openChangeForm = (e) => {
+        document.body.style.overflowY = 'hidden';
+        this.setState({
+            isMyFishOpen: false,
+            isChangeFormOpen: true,
+            isFormMessageOpen: false
+        })
+    }
+
 
     filterCatalog = (searchTxt) => {
         this.setState({
@@ -150,7 +198,7 @@ class Root extends React.Component {
     }
 
     render() {
-        const { isFishCardOpen, fishIdToDisplay, fish, isMyFishOpen, myFish, myFishIdToDisplay, isFormOpen } = this.state;
+        const { isFishCardOpen, fishIdToDisplay, fish, isMyFishOpen, myFish, myFishIdToDisplay, isFormOpen, isChangeFormOpen } = this.state;
         const contextElements = {
             ...this.state,
             openFishCard: this.openFishCard,
@@ -162,16 +210,18 @@ class Root extends React.Component {
             filterMyFishListParamFromBase: this.filterMyFishListParamFromBase,
             openForm: this.openForm,
             closeForm: this.closeForm,
-            addFn: this.addFn
+            addFn: this.addFn,
+            openChangeForm: this.openChangeForm,
         }
         return (
             <BrowserRouter>
                 <>
                     <AppContext.Provider value={contextElements}>
                         <Header />
-                        {isFormOpen && <Form />}
                         {isFishCardOpen && <FishCard {...fish[fishIdToDisplay - 1]} />}
                         {isMyFishOpen && <MyFishCard {...Object(...myFish.filter((fhs) => fhs.myKey.toString() === myFishIdToDisplay.toString()))} />}
+                        {isFormOpen && <Form />}
+                        {isChangeFormOpen && <Form {...Object(...myFish.filter((fhs) => fhs.myKey.toString() === myFishIdToDisplay.toString()))} />}
                         <Switch>
                             <Route exact path='/' component={Catalog} />
                             <Route path='/myfish' component={MyFish} />

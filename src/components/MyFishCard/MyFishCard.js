@@ -39,12 +39,17 @@ class MyFishCard extends React.Component {
 
                     <p className={styles.smallHeader}>twoja ocena połowu:</p>
                     <GradeStars
-                    onClick={(e) => this.context.handleGradeChange(e, myKey)}
-                    myGrade={myGrade}
+                        onClick={(e) => this.context.handleGradeChange(e, myKey)}
+                        myGrade={myGrade}
                     >kliknij, aby zmodyfikować</GradeStars>
+
 
                 </div>
                 <div className={styles.flexEnter}></div>
+                <Button
+                        id={myKey}
+                        onClick={this.context.openChangeForm}
+                    >zmień dane</Button>
                 <Button
                     id={myKey}
                     onClick={this.context.closeMyFish}

@@ -40,8 +40,8 @@ class SearchBox extends React.Component {
                         value &&
                         <Button
                         onClick={crossOnClock}
-                        type='clear'
-                        {...props}>
+                        {...props}
+                        type='clear'>
                         </Button>
                     }
                 </div>

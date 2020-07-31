@@ -8,17 +8,16 @@ import fish from '../../assets/data/fish';
 
 
 class Form extends React.Component {
-
     state = {
-        fishId: '',
-        myKey: '',
-        myPlace: '',
-        myFood: '',
-        myMethod: '',
-        myLength: '',
-        myWeight: '',
-        myDescription: '',
-        myGrade: ''
+        fishId: this.props.fishId ? this.props.fishId : '',
+        myKey: this.props.myKey ? this.props.myKey : '',
+        myPlace: this.props.myPlace ? this.props.myPlace : '',
+        myFood: this.props.myFood ? this.props.myFood : '',
+        myMethod: this.props.myMethod ? this.props.myMethod : '',
+        myLength: this.props.myLength ? this.props.myLength : '',
+        myWeight: this.props.myWeight ? this.props.myWeight : '',
+        myDescription: this.props.myDescription ? this.props.myDescription : '',
+        myGrade: this.props.myGrade ? this.props.myGrade : ''
     }
 
     handleInputChange = (e, reset) => {
@@ -31,11 +30,10 @@ class Form extends React.Component {
         })
     }
 
-
     render() {
-        const { addFn } = this.context
+        const { addFn, isFormMessageOpen } = this.context
         const { myPlace, myFood, myMethod, myLength, myWeight, myDescription, myGrade, fishId } = this.state
-        
+
 
         return (
             <div className={styles.wrapper}>
@@ -52,23 +50,25 @@ class Form extends React.Component {
                         value={fishId.toUpperCase()}
                         labelTxt='nazwa'
                         crossOnClock={(e) => this.handleInputChange(e, null)}
-                        select={[['---', '---'], ...fish.map((fhs)=>[fhs.id, fhs.name])]} 
+                        select={[['---', '--- *'], ...fish.map((fhs) => [fhs.id, fhs.name])]}
                     >gatunek:</SearchBox>
 
                     <SearchBox
                         name='myPlace'
                         id='myPlace'
                         onChange={(e) => this.handleInputChange(e)}
-                        value={myPlace.toUpperCase()}
-                        labelTxt='akwen / miejscowość'
+                        value={myPlace}
+                        labelTxt='akwen / miejscowość *'
                         crossOnClock={(e) => this.handleInputChange(e, null)}
                     >miejsce połowu:</SearchBox>
+
+                    <div className={styles.flexEnter}></div>
 
                     <SearchBox
                         name='myFood'
                         id='myFood'
                         onChange={(e) => this.handleInputChange(e)}
-                        value={myFood.toUpperCase()}
+                        value={myFood}
                         labelTxt='przynęta'
                         crossOnClock={(e) => this.handleInputChange(e, null)}
                     >na co złowione:</SearchBox>
@@ -77,58 +77,60 @@ class Form extends React.Component {
                         name='myMethod'
                         id='myMethod'
                         onChange={(e) => this.handleInputChange(e)}
-                        value={myMethod.toUpperCase()}
+                        value={myMethod}
                         labelTxt='opis'
                         crossOnClock={(e) => this.handleInputChange(e, null)}
                     >jaką metodą:</SearchBox>
+
+                    <div className={styles.flexEnter}></div>
 
                     <SearchBox
                         type='number'
                         name='myLength'
                         id='myLength'
                         onChange={(e) => this.handleInputChange(e)}
-                        value={myLength.toUpperCase()}
-                        labelTxt='centymetry'
+                        value={myLength}
+                        labelTxt='centymetry *'
                         crossOnClock={(e) => this.handleInputChange(e, null)}
                     >długość ryby:</SearchBox>
 
                     <SearchBox
-                        // type='number'
+                        type='number'
                         name='myWeight'
                         id='myWeight'
                         onChange={(e) => this.handleInputChange(e)}
-                        value={myWeight.toUpperCase()}
-                        labelTxt='gramy'
+                        value={myWeight}
+                        labelTxt='gramy *'
                         crossOnClock={(e) => this.handleInputChange(e, null)}
                     >waga ryby:</SearchBox>
+
+                    <div className={styles.flexEnter}></div>
 
                     <SearchBox
                         textarea
                         name='myDescription'
                         id='myDescription'
                         onChange={(e) => this.handleInputChange(e)}
-                        value={myDescription.toUpperCase()}
+                        value={myDescription}
                         labelTxt='opis'
                         crossOnClock={(e) => this.handleInputChange(e, null)}
                     >opis połowu:</SearchBox>
 
                     <GradeStars
-                    name='myGrade'
-                    onClick={(e) => this.handleInputChange(e)}
-                    myGrade={myGrade}
-                    >nadaj ocenę</GradeStars>
-
-
-                    <Button>dodaj</Button>
+                        name='myGrade'
+                        onClick={(e) => this.handleInputChange(e)}
+                        myGrade={myGrade}
+                    >nadaj ocenę *</GradeStars>
+                    {
+                        isFormMessageOpen && <div className={styles.message}>uzupełnij pola oznaczone gwiazdką oraz ocenę</div>
+                    }
+                    <div className={styles.flexEnter}></div>
+                    <Button>
+                        {
+                            this.props.fishId ? 'zmień' : 'dodaj'
+                        }
+                    </Button>
                 </form>
-
-                <div className={styles.flexEnter}></div>
-
-                <Button
-                    onClick={this.test}
-                    name='test'
-                    > test
-                </Button>
 
                 <Button
                     onClick={this.context.closeForm}
