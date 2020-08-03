@@ -3,6 +3,10 @@ import styles from './MyFishListItem.module.sass';
 import AppContext from '../../context';
 import GradeStars from '../GradeStars/GradeStars';
 import Button from '../Button/Button';
+import Image from '../Image/Image';
+import TxtWhHead from '../TxtWhHead/TxtWhHead';
+import CardTitle from '../CardTitle/CardTitle';
+import CardItem from '../CardItem/CardItem';
 
 class MyFishListItem extends React.Component {
     render() {
@@ -12,36 +16,26 @@ class MyFishListItem extends React.Component {
         const date = new Date(myKey).toLocaleDateString();
 
         return (
-            <li className={styles.listElementWrapper}>
-                <h2 className={styles.title}>{name}</h2>
-                <div className={styles.imageBox}><div className={styles.imageBubble}><img
-                    className={styles.image}
+            <CardItem narrow>
+                <CardTitle>{name}</CardTitle>
+                <Image
                     src={img}
-                    alt={name}
-                /></div></div>
+                    alt={name} />
+
                 <div className={styles.infoBox}>
-                    <h4 className={styles.smallHeader}>data połowu:</h4>
-                    <p className={styles.txt}>{date}</p>
-                    <h4 className={styles.smallHeader}>miejsce połowu:</h4>
-                    <p className={styles.txt}>{myPlace}</p>
-                    <h4 className={styles.smallHeader}>długość:</h4>
-                    <p className={styles.txt}>{`${myLength} cm`}</p>
-                    <h4 className={styles.smallHeader}>waga:</h4>
-                    <p className={styles.txt}>{`${myWeight} gr`}</p>
-                    <p className={styles.smallHeader}>twoja ocena połowu:</p>
+                    <TxtWhHead headTxt='data połowu:'>{date}</TxtWhHead>
+                    <TxtWhHead headTxt='miejsce połowu:'>{myPlace}</TxtWhHead>
+                    <TxtWhHead headTxt='długość:'>{`${myLength} cm`}</TxtWhHead>
+                    <TxtWhHead headTxt='waga:'>{`${myWeight} gr`}</TxtWhHead>
+                    <TxtWhHead headTxt='twoja ocena połowu:'></TxtWhHead>
                 </div>
-
                 <GradeStars {...this.props} nonClick></GradeStars>
-
-                <div className={styles.flexEnter}></div>
                 <Button
                     id={myKey}
-                    onClick={this.context.openMyFish}
-                >
+                    onClick={this.context.openMyFish}>
                     więcej
                 </Button>
-
-            </li>
+            </CardItem>
         )
     }
 };

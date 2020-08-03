@@ -1,0 +1,22 @@
+@mixin wrap
+    width: 95%
+    max-width: 1300px
+    margin: 0 auto
+
+.sectionHeader
+    @include wrap
+    padding: 1rem 0 3rem
+    font-size: 2.5rem
+    text-transform: uppercase
+    text-align: center
+    letter-spacing: .2rem
+    color: #afb3b0
+    &:first-letter
+        font-size: 1.2em
+    
+.wrapper
+    @include wrap
+    display: flex
+    flex-wrap: wrap
+    justify-content: space-evenly
+    margin-top: 2rem

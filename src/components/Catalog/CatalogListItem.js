@@ -2,41 +2,39 @@ import React from 'react';
 import styles from './CatalogListItem.module.sass';
 import AppContext from '../../context';
 import Button from '../Button/Button';
+import Image from '../Image/Image';
+import TxtWhHead from '../TxtWhHead/TxtWhHead';
+import CardTitle from '../CardTitle/CardTitle';
+import CardItem from '../CardItem/CardItem';
+
 
 const CatalogListItem = ({ name, img, generalInfo, lengthLimit, timeLimit, id }) => (
     <AppContext.Consumer>
         {(context) => (
-            <li className={styles.wrapper}>
-                <h2 className={styles.title}>{name}</h2>
-                <div className={styles.imageBox}><div className={styles.imageBubble}><img
-                    className={styles.image}
+            <CardItem>
+                <CardTitle>{name}</CardTitle>
+                <Image
                     src={img}
-                    alt={name}
-                /></div></div>
-
-
+                    alt={name} />
                 <div className={styles.infoBox}>
-                    <h4 className={styles.smallHeader}>Info:</h4>
-                    <p className={styles.txt}>{generalInfo}</p>
-                    <h4 className={styles.smallHeader}>Wymiar ochronny:</h4>
-                    <p className={styles.txt}>{lengthLimit}</p>
-                    <h4 className={styles.smallHeader}>Okres ochronny:</h4>
-                    <p className={styles.txt}>{timeLimit}</p>
+                    <TxtWhHead headTxt='Info:'>{generalInfo}</TxtWhHead>
+                    <TxtWhHead headTxt='Wymiar ochronny:'>{lengthLimit}</TxtWhHead>
+                    <TxtWhHead headTxt='Okres ochronny:'>{timeLimit}</TxtWhHead>
                 </div>
                 <div className={styles.flexEnter}></div>
                 <Button
                     id={id}
-                    onClick={context.openFishCard}
-                >
-                    więcej
+                    onClick={context.openFishCard}>
+                    info
                 </Button>
-
-            </li>
+                <Button
+                    id={id}
+                    onClick={(e)=>context.openForm(e)}>
+                    złowiona
+                </Button>
+            </CardItem>
         )}
     </AppContext.Consumer>
-
-
-
 );
 
 export default CatalogListItem;

@@ -1,9 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@200;400;700&display=swap');
 
+
 :root {
     font-size: 15px;
     scroll-behavior: smooth;
-    --dark-main: #1f2b22;
+    --dark-main: #18221b;
     --dark-shadows: #000000;
     --light-main: #ebf3ed;
     --light-shadows: #afb3b0;

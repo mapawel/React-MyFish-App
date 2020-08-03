@@ -1,9 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Cute+Font&display=swap')
+    
 .box
     position: absolute
     z-index: 1
-    top: 20vh
+    top: 55%
     left: 50%
-    transform: translateX(calc(-50% - 5px))
+    transform: translate(-50%, -50%)
     &::after
         content: ''
         position: absolute
@@ -16,10 +18,16 @@
 
 
 .title
+    font-family: 'Cute Font', cursive
     color: white
-    font-size: 5rem
-    font-weight: 700
+    font-size: 12rem
+    line-height: .7
     text-transform: uppercase
     letter-spacing: .5rem
     &::first-letter
         color: #30ca56
+
+@media screen and ( min-width: 992px )
+    .title
+        font-size: 16rem
+    

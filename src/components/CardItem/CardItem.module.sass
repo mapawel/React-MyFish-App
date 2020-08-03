@@ -1,0 +1,29 @@
+.wrapperWide, .wrapperNarrow, .wrapperExtraNarrow
+    width: 100%
+    display: flex
+    flex-wrap: wrap
+    justify-content: center
+    align-items: center
+    list-style: none
+    margin: 1.5rem 0
+    padding: 2.5rem 20px
+    border-radius: 10px
+    box-shadow: 0 5px 30px -10px #000000
+
+.wrapperNarrow
+    flex-direction: column
+
+.wrapperExtraNarrow
+    max-width: 48%
+
+@media screen and ( min-width: 567px )
+    .wrapperWide
+        justify-content: space-between
+    .wrapperNarrow
+        width: 48.5%
+        max-width: 290px
+        margin: 1.5rem 2px
+    
+@media screen and ( min-width: 992px )
+    .wrapperWide
+        max-width: 48%

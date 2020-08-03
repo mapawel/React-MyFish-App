@@ -11,10 +11,10 @@ import fish from '../../assets/data/fish';
 import AppContext from '../../context';
 import MyFishCard from '../../components/MyFishCard/MyFishCard';
 import Form from '../../components/Form/Form';
+import InfoBox from '../../components/InfoBox/InfoBox';
 
 
 class Root extends React.Component {
-
     state = {
         fish: fish,
         fishFiltered: '',
@@ -32,7 +32,9 @@ class Root extends React.Component {
         searchedMonthInMyFish: '',
         searchedYearInMyFish: '',
         searchedStarsInMyFish: '',
+        sort: '',
         myFish: myFishInitialDB,
+        isInfoOpen: false,
     }
 
     addFn = (e, newFishData) => {
@@ -107,12 +109,14 @@ class Root extends React.Component {
         document.body.style.overflowY = 'auto';
         this.setState({
             isFishCardOpen: false,
+            fishIdToDisplay: ''
         })
     }
 
-    openForm = () => {
+    openForm = (e) => {
         document.body.style.overflowY = 'hidden';
         this.setState({
+            fishIdToDisplay: e.target.id,
             isFormOpen: true,
             isFormMessageOpen: false
         })
@@ -123,6 +127,7 @@ class Root extends React.Component {
         this.setState({
             isFormOpen: false,
             isChangeFormOpen: false,
+            fishIdToDisplay: ''
         })
     }
 
@@ -135,7 +140,6 @@ class Root extends React.Component {
         })
     }
 
-
     filterCatalog = (searchTxt) => {
         this.setState({
             fishFiltered: this.state.fish.filter((fhs) => fhs.name.toLowerCase().includes(searchTxt.toLowerCase())),
@@ -143,8 +147,7 @@ class Root extends React.Component {
         })
     }
 
-
-    filterMyFishListParamFromBase = (searchTxt, param, searchPlace, searchMonth, searchYear, stars) => {
+    filterMyFishListParamFromBase = (searchTxt, param, searchPlace, searchMonth, searchYear, stars, sort) => {
 
         const idsFitToSearchArr = this.state.fish.filter((fhs) => fhs[param].toLowerCase().includes(searchTxt.toLowerCase()))
         let foundSearchElement = [];
@@ -159,7 +162,6 @@ class Root extends React.Component {
 
         if (searchMonth !== '' && searchMonth !== '---') {
             foundSearchElement = foundSearchElement.filter((fhs) => new Date(fhs.myKey).getMonth() + 1 === searchMonth * 1)
-            console.log(searchMonth);
         }
 
         if (searchYear !== '' && searchYear !== '---') {
@@ -170,13 +172,25 @@ class Root extends React.Component {
             foundSearchElement = foundSearchElement.filter((fhs) => fhs.myGrade === stars * 1);
         }
 
+        if (sort !== '') {
+            let compareNumbers;
+            if (sort.id === '1') {
+                compareNumbers = (a, b) => a[sort.name] - b[sort.name]
+            }
+            else {
+                compareNumbers = (a, b) => b[sort.name] - a[sort.name]
+            }
+            foundSearchElement = foundSearchElement.sort(compareNumbers)
+        }
+
         this.setState({
             myFishFiltered: foundSearchElement,
             searchedFishInMyFish: searchTxt,
             searchedPlaceInMyFish: searchPlace,
             searchedMonthInMyFish: searchMonth,
             searchedYearInMyFish: searchYear,
-            searchedStarsInMyFish: stars
+            searchedStarsInMyFish: stars,
+            sort: sort
         })
     }
 
@@ -197,8 +211,26 @@ class Root extends React.Component {
         })
     }
 
+    scrollTop = () => {
+        window.scrollTo(0,window.innerHeight-60)
+    }
+
+    openInfo = () => {
+        document.body.style.overflowY = 'hidden';
+        this.setState({
+            isInfoOpen: true,
+        })
+    }
+
+    closeInfo = () => {
+        document.body.style.overflowY = 'auto';
+        this.setState({
+            isInfoOpen: false,
+        })
+    }
+
     render() {
-        const { isFishCardOpen, fishIdToDisplay, fish, isMyFishOpen, myFish, myFishIdToDisplay, isFormOpen, isChangeFormOpen } = this.state;
+        const { isFishCardOpen, fishIdToDisplay, fish, isMyFishOpen, myFish, myFishIdToDisplay, isFormOpen, isChangeFormOpen, isInfoOpen } = this.state;
         const contextElements = {
             ...this.state,
             openFishCard: this.openFishCard,
@@ -212,6 +244,9 @@ class Root extends React.Component {
             closeForm: this.closeForm,
             addFn: this.addFn,
             openChangeForm: this.openChangeForm,
+            scrollTop: this.scrollTop,
+            openInfo: this.openInfo,
+            closeInfo: this.closeInfo
         }
         return (
             <BrowserRouter>
@@ -222,6 +257,7 @@ class Root extends React.Component {
                         {isMyFishOpen && <MyFishCard {...Object(...myFish.filter((fhs) => fhs.myKey.toString() === myFishIdToDisplay.toString()))} />}
                         {isFormOpen && <Form />}
                         {isChangeFormOpen && <Form {...Object(...myFish.filter((fhs) => fhs.myKey.toString() === myFishIdToDisplay.toString()))} />}
+                        {isInfoOpen && <InfoBox />}
                         <Switch>
                             <Route exact path='/' component={Catalog} />
                             <Route path='/myfish' component={MyFish} />

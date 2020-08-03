@@ -1,0 +1,44 @@
+.sortIconsBox
+    display: flex
+    justify-content: center
+    align-items: center
+
+.iconUp, .iconDown
+    position: relative
+    width: 35px
+    height: 35px
+    margin-right: 2px
+    background: none
+    border: none
+    cursor: pointer
+    &::after
+        content: ''
+        position: absolute
+        top: 50%
+        transform: translateY(-50%)
+        width: 0
+        height: 0
+        border-left: 10px solid transparent
+        border-right: 10px solid transparent
+    &:hover::after
+        border-color: #a3e9b4
+        border-right: 10px solid transparent
+        border-left: 10px solid transparent
+    &:focus
+        outline: none
+        &::after
+            border-color: #30ca56
+            border-right: 10px solid transparent
+            border-left: 10px solid transparent
+        
+
+.iconUp::after
+    border-bottom: 20px solid #afb3b0
+    right: 0        
+
+.iconDown::after
+    border-top: 20px solid #afb3b0
+    left: 0
+
+.sortTxt
+    color: #afb3b0

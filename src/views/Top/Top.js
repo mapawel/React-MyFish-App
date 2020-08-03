@@ -1,7 +1,8 @@
 import React from 'react';
+import StatList from '../../components/StatList/StatList'
 
 const Top = () => (
-    <p>This is TOP RESULTS View ! ! !</p>
+    <StatList></StatList>
 );
 export default Top;
 

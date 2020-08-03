@@ -1,61 +1,5 @@
 .flexEnter
     width: 100%
-    
-.wrapper
-    display: flex
-    flex-wrap: wrap
-    justify-content: center
-    align-items: center
-    list-style: none
-    margin: 1.5rem 0
-    padding: 2.5rem 20px
-    border-radius: 10px
-    box-shadow: 0 5px 30px -10px #000000
-
-.title, .smallHeader
-    width: 100%
-    text-align: center
-    text-transform: uppercase
-    letter-spacing: .2rem
-    font-weight: 700
-    color: #30ca56
-
-.smallHeader
-    text-align: left
-    margin-bottom: 5px
-
-.txt
-    position: relative
-    z-index: -1
-    margin-bottom: 1rem
-    padding-left: 10px
-    line-height: 1.5
-    &::before
-        content: ''
-        position: absolute
-        top: 0
-        left: 0
-        height: 100%
-        width: 2px
-        background-color: #30ca56
-
-
-.imageBox
-    width: 100%
-    max-width: 250px
-    margin: 20px 0
-
-.imageBubble
-    display: flex
-    justify-content: center
-    align-items: center
-    height: 0
-    padding: 50% 0
-    background-image: radial-gradient(circle, rgba(235,243,237,1) 15%, rgba(31,43,34,1) 70%)
-
-.image
-    display: block
-    width: 90%
 
 .infoBox
     align-self: center
@@ -65,13 +9,6 @@
 
 
 @media screen and ( min-width: 567px )
-    .wrapper
-        justify-content: space-between
-    .infoBox, .imageBox
+    .infoBox
         width: 48%
-    
-@media screen and ( min-width: 992px )
-    .wrapper
-        max-width: 48%
-
     

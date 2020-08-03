@@ -5,11 +5,13 @@ import Button from '../Button/Button';
 import AppContext from '../../context';
 import GradeStars from '../GradeStars/GradeStars';
 import fish from '../../assets/data/fish';
+import CardTitle from '../CardTitle/CardTitle';
+import ModalCard from '../ModalCard/ModalCard';
 
 
 class Form extends React.Component {
     state = {
-        fishId: this.props.fishId ? this.props.fishId : '',
+        fishId: this.props.fishId ? this.props.fishId : this.context.fishIdToDisplay,
         myKey: this.props.myKey ? this.props.myKey : '',
         myPlace: this.props.myPlace ? this.props.myPlace : '',
         myFood: this.props.myFood ? this.props.myFood : '',
@@ -36,8 +38,11 @@ class Form extends React.Component {
 
 
         return (
-            <div className={styles.wrapper}>
-                <h2 className={styles.title}>dodaj złowioną rybę</h2>
+            <ModalCard>
+
+                <CardTitle>
+                    {this.props.fishId ? 'zmień dane' : 'dodaj złowioną rybę'}
+                </CardTitle>
 
                 <form
                     className={styles.formWrapper}
@@ -137,26 +142,10 @@ class Form extends React.Component {
                     name='myPlace'
                     type='close'>
                 </Button>
-            </div>
+            </ModalCard>
         )
     }
 };
 Form.contextType = AppContext;
 
 export default Form;
-
-
-
-// addingNewFish: [
-//     {
-//         fishId: '',
-//         myKey: '',
-//         myPlace: '',
-//         myFood: '',
-//         myMethod: '',
-//         myLength: '',
-//         myWeight: '',
-//         myDescription: '',
-//         myGrade: ''
-//     }
-// ]
