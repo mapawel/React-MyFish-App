@@ -11,7 +11,6 @@ class SearchBox extends React.Component {
         const classInput = textarea ? styles.inputElementArea : styles.inputElement
         const options = select ? select.map((sel) => <option className={styles.optionSelect} key={sel} value={sel[0]}>{sel[1]}</option>) : null
         
-
         return (
             <div className={styles.wrapper}>
                 <h4 className={styles.inputHeader}>
@@ -48,9 +47,6 @@ class SearchBox extends React.Component {
             </div>
         )
     }
-
-
-
 };
 SearchBox.contextType = AppContext;
 

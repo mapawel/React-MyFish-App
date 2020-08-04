@@ -33,7 +33,7 @@ class Nav extends React.Component {
                     <div className={styles.buttonsBox}>
                         <ButtonAdd
                             onClick={this.context.openForm}
-                            id='addBtn'
+                            // id='addBtn'
                         />
                         <ButtonBurger
                             expand={this.state.isNavExpanded ? 'expand' : null}
@@ -46,7 +46,7 @@ class Nav extends React.Component {
                     <div className={styles.wrapper}>
                         <ButtonAdd
                             onClick={this.context.openForm}
-                            id='addBtn'
+                            // id='addBtn'
                         />
                         <ul className={styles.list}>
                             <li className={styles.listElement}>
@@ -77,11 +77,11 @@ class Nav extends React.Component {
                                     statystyki
                             </NavLink>
                             </li>
-                            <li className={styles.listElement}>
+                            <li className={styles.listElement}
+                            onClick={this.context.openInfo}>
                                 <FontAwesomeIcon
                                     className={styles.icon}
                                     icon={faQuestion}
-                                    onClick={this.context.openInfo}
                                 />
                             </li>
                         </ul>

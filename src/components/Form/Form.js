@@ -52,7 +52,7 @@ class Form extends React.Component {
                         name='fishId'
                         id='fishId'
                         onChange={(e) => this.handleInputChange(e)}
-                        value={fishId.toUpperCase()}
+                        value={fishId}
                         labelTxt='nazwa'
                         crossOnClock={(e) => this.handleInputChange(e, null)}
                         select={[['---', '--- *'], ...fish.map((fhs) => [fhs.id, fhs.name])]}
