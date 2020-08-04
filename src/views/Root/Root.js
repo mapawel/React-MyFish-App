@@ -37,7 +37,16 @@ class Root extends React.Component {
         isInfoOpen: false,
     }
 
-    addFn = (e, newFishData) => {
+    componentDidMount(){
+        if (JSON.parse(localStorage.getItem('fishSaved'))) {
+            const fishLocalSaved = JSON.parse(localStorage.getItem('fishSaved'));
+            this.setState(prevState=>({
+                myFish: fishLocalSaved, 
+            }))
+        }
+    }
+
+    addFn = async (e, newFishData) => {
         e.preventDefault();
         const { fishId, myKey, myPlace, myLength, myWeight, myGrade } = newFishData;
 
@@ -48,7 +57,7 @@ class Root extends React.Component {
                 newFish.myLength = newFish.myLength * 1;
                 newFish.myWeight = newFish.myWeight * 1;
                 newFish.myGrade = newFish.myGrade * 1;
-                this.setState(prevState => ({
+                await this.setState(prevState => ({
                     myFish: [...prevState.myFish, newFish],
                 }))
                 this.closeForm()
@@ -61,7 +70,7 @@ class Root extends React.Component {
         } else {
 
             if (fishId && myPlace && myLength && myWeight && myGrade) {
-                this.setState(prevState => {
+                await this.setState(prevState => {
                     const changedMyFish = Object(...prevState.myFish.filter((fhs) => fhs.myKey.toString() === myKey.toString()));
                     for (let data in newFishData) { changedMyFish[data] = newFishData[data] }
                     const changingElIndex = prevState.myFish.indexOf(changedMyFish);
@@ -80,6 +89,7 @@ class Root extends React.Component {
                 })
             }
         }
+        localStorage.setItem('fishSaved', JSON.stringify(this.state.myFish))
     }
 
     openMyFish = (e) => {
