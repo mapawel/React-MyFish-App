@@ -2,12 +2,21 @@ import React from 'react';
 import styles from './MyFishList.module.sass';
 import AppContext from '../../context';
 import MyFishListItem from './MyFishListItem';
-import SearchCombo from '../../components/SearchCombo/SearchCombo'
+import SearchCombo from '../../components/SearchCombo/SearchCombo';
+import Button from '../Button/Button'
 
 class MyFishList extends React.Component {
 
     render() {
-
+        let welcomescreen
+        if (this.context.myFish.length === 0) {
+            welcomescreen = 
+                <div className={styles.welcomeBox}>
+                <h2 className={styles.welcomeInfo}>Nie masz jeszcze żadnych okazów. Dodaj swój pierwszy połów:</h2>
+                <Button onClick={this.context.openForm}>dodaj</Button>
+            </div> 
+        } else {welcomescreen = null;
+        console.log(this.context.myFish.length);}
 
 
         return (
@@ -17,6 +26,9 @@ class MyFishList extends React.Component {
                 <SearchCombo />
 
                 <ul className={styles.listWrapper}>
+                    {
+                        welcomescreen
+                    }
                     {
                         this.context.myFishFiltered ?
                             (

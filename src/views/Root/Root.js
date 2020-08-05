@@ -32,8 +32,8 @@ class Root extends React.Component {
         searchedMonthInMyFish: '',
         searchedYearInMyFish: '',
         searchedStarsInMyFish: '',
-        sort: '',
-        myFish: myFishInitialDB,
+        sort: {name: 'myKey', id: 1},
+        myFish: [],
         isInfoOpen: false,
     }
 
@@ -42,6 +42,10 @@ class Root extends React.Component {
             const fishLocalSaved = JSON.parse(localStorage.getItem('fishSaved'));
             this.setState(prevState=>({
                 myFish: fishLocalSaved, 
+            }))
+        } else {
+            this.setState(prevState=>({
+                myFish: myFishInitialDB, 
             }))
         }
     }
@@ -59,6 +63,7 @@ class Root extends React.Component {
                 newFish.myGrade = newFish.myGrade * 1;
                 await this.setState(prevState => ({
                     myFish: [...prevState.myFish, newFish],
+                    myFishFiltered: [...prevState.myFishFiltered, newFish],
                 }))
                 this.closeForm()
             } else {
@@ -90,6 +95,16 @@ class Root extends React.Component {
             }
         }
         localStorage.setItem('fishSaved', JSON.stringify(this.state.myFish))
+    }
+
+    removeMyFish = async (e, fishKey) => {
+        e.preventDefault();
+        await this.setState(prevState=>({
+            myFish: prevState.myFish.filter((fhs)=>fhs.myKey !== fishKey),
+            myFishFiltered: this.state.myFishFiltered ? prevState.myFishFiltered.filter((fhs)=>fhs.myKey !== fishKey) : null
+        }));
+        localStorage.setItem('fishSaved', JSON.stringify(this.state.myFish));
+        this.closeForm();
     }
 
     openMyFish = (e) => {
@@ -191,6 +206,7 @@ class Root extends React.Component {
                 compareNumbers = (a, b) => b[sort.name] - a[sort.name]
             }
             foundSearchElement = foundSearchElement.sort(compareNumbers)
+            console.log(sort);
         }
 
         this.setState({
@@ -256,7 +272,8 @@ class Root extends React.Component {
             openChangeForm: this.openChangeForm,
             scrollTop: this.scrollTop,
             openInfo: this.openInfo,
-            closeInfo: this.closeInfo
+            closeInfo: this.closeInfo,
+            removeMyFish: this.removeMyFish
         }
         return (
             <BrowserRouter>

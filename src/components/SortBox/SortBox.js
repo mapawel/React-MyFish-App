@@ -5,6 +5,21 @@ import AppContext from '../../context';
 class SortBox extends React.Component {
     render() {
         const { onClick, name, children } = this.props
+        const { sort } = this.context
+
+        let upClass;
+        if (sort.id*1 === 1 && name === sort.name) {
+            upClass = styles.iconUpActive
+        } else {
+            upClass = styles.iconUp
+        }
+        
+        let downClass;
+        if (sort.id*1 === 2 && name === sort.name) {
+            downClass = styles.iconDownActive
+        } else {
+            downClass = styles.iconDown
+        }
 
         return (
                 <div
@@ -13,13 +28,13 @@ class SortBox extends React.Component {
                 >
                     <p className={styles.sortTxt}>{children}</p>
                     <button
-                    className={styles.iconUp}
+                    className={upClass}
                     name={name}
                     id='1'
                     onClick={onClick}
                     ></button>
                     <button
-                    className={styles.iconDown}
+                    className={downClass}
                     name={name}
                     id='2'
                     onClick={onClick}

@@ -33,7 +33,7 @@ class Form extends React.Component {
     }
 
     render() {
-        const { addFn, isFormMessageOpen } = this.context
+        const { addFn, isFormMessageOpen, removeMyFish } = this.context
         const { myPlace, myFood, myMethod, myLength, myWeight, myDescription, myGrade, fishId } = this.state
 
 
@@ -135,6 +135,14 @@ class Form extends React.Component {
                             this.props.fishId ? 'zmień' : 'dodaj'
                         }
                     </Button>
+                    {
+                        this.props.fishId &&
+                        <Button
+                        type='defaultRed'
+                        onClick={(e)=>removeMyFish(e, this.props.myKey)}>
+                            ! usuń z bazy
+                    </Button>
+                    }
                 </form>
 
                 <Button

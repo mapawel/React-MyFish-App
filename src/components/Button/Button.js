@@ -13,6 +13,9 @@ class Button extends React.Component {
             case 'clear':
                 btnClass = styles.roundClearBtn
                 break;
+            case 'defaultRed':
+                btnClass = styles.defaultBtnRed
+                break;
             default:
                 btnClass = styles.defaultBtn;
         }
